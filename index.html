@@ -81,7 +81,7 @@
 
       <div class="flex items-center gap-3">
         <span id="totalBadge" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300">
-          <i class="fa-solid fa-film text-brand-red"></i> 총 <span id="countText" class="text-white font-bold">27</span>개 영상
+          <i class="fa-solid fa-film text-brand-red"></i> 총 <span id="countText" class="text-white font-bold">29</span>개 영상
         </span>
       </div>
     </div>
@@ -97,7 +97,7 @@
         GO!GIRIT! <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-rose-400 to-amber-400">영상 컬렉션</span>
       </h1>
       <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
-        MT 편부터 시즌 1, 시즌 2까지 원하는 에피소드를 클릭하여 바로 감상해보세요.
+        MT 편부터 시즌 1, 시즌 2, 시즌 3까지 원하는 에피소드를 클릭하여 바로 감상해보세요.
       </p>
 
       <!-- Search Box -->
@@ -130,35 +130,42 @@
         <button 
           onclick="filterCategory('전체')" 
           data-category="전체" 
-          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-brand-red text-white shadow-md shadow-brand-red/20 flex items-center gap-1.5"
+          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-brand-red text-white shadow-md shadow-brand-red/20 flex items-center gap-1.5 whitespace-nowrap"
         >
           <i class="fa-solid fa-layer-group"></i> 전체보기
         </button>
         <button 
           onclick="filterCategory('MT')" 
           data-category="MT" 
-          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5"
+          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap"
         >
           <i class="fa-solid fa-campground"></i> MT 편
         </button>
         <button 
           onclick="filterCategory('시즌1')" 
           data-category="시즌1" 
-          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5"
+          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap"
         >
           <i class="fa-solid fa-star"></i> 시즌 1
         </button>
         <button 
           onclick="filterCategory('시즌2')" 
           data-category="시즌2" 
-          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5"
+          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap"
         >
           <i class="fa-solid fa-bolt"></i> 시즌 2
+        </button>
+        <button 
+          onclick="filterCategory('시즌3')" 
+          data-category="시즌3" 
+          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-fire"></i> 시즌 3
         </button>
       </div>
 
       <div class="text-xs text-slate-400 whitespace-nowrap pl-2">
-        검색결과: <span id="filteredCount" class="text-brand-red font-bold">27</span>개
+        검색결과: <span id="filteredCount" class="text-brand-red font-bold">29</span>개
       </div>
     </div>
   </div>
@@ -296,7 +303,11 @@
       { id: "ancDrcQg9-I", title: "GO!GIRIT! 시즌2 7화 건전한 할로윈파티&비친소 Day", category: "시즌2", ep: "7화", views: "21.6만회" },
       { id: "DUjaWVAehiA", title: "GO!GIRIT! 시즌2 7화 12시간 이후 녹화본", category: "시즌2", ep: "7화 녹화본", views: "9.5만회" },
       { id: "jkx4d3AFGco", title: "GO!GIRIT! 시즌2 8화 크레이지 애니멀 1부", category: "시즌2", ep: "8화 1부", views: "15.8만회" },
-      { id: "52rb22Qg6rc", title: "GO!GIRIT! 시즌2 8화 크레이지 애니멀 2부", category: "시즌2", ep: "8화 2부", views: "18.2만회" }
+      { id: "52rb22Qg6rc", title: "GO!GIRIT! 시즌2 8화 크레이지 애니멀 2부", category: "시즌2", ep: "8화 2부", views: "18.2만회" },
+
+      // 시즌 3
+      { id: "qXsUd3VQ1js", title: "GO!GIRIT! 시즌3 1화 대망의 직급전 1부", category: "시즌3", ep: "1화 1부", views: "조회수 집계중" },
+      { id: "kjDDXnL22Dw", title: "GO!GIRIT! 시즌3 1화 대망의 직급전 2부", category: "시즌3", ep: "1화 2부", views: "조회수 집계중" }
     ];
 
     // 실시간 YouTube Data API 키 연동 (선택 사항)
@@ -376,7 +387,8 @@
       const catColorMap = {
         'MT': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
         '시즌1': 'bg-blue-500/20 text-blue-400 border-blue-500/40',
-        '시즌2': 'bg-amber-500/20 text-amber-400 border-amber-500/40'
+        '시즌2': 'bg-amber-500/20 text-amber-400 border-amber-500/40',
+        '시즌3': 'bg-purple-500/20 text-purple-400 border-purple-500/40'
       };
 
       container.innerHTML = filtered.map((video) => {
@@ -499,9 +511,9 @@
 
       tabs.forEach(tab => {
         if (tab.getAttribute('data-category') === cat) {
-          tab.className = "cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-brand-red text-white shadow-md shadow-brand-red/20 flex items-center gap-1.5";
+          tab.className = "cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-brand-red text-white shadow-md shadow-brand-red/20 flex items-center gap-1.5 whitespace-nowrap";
         } else {
-          tab.className = "cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5";
+          tab.className = "cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap";
         }
       });
 
