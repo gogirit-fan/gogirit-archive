@@ -141,3 +141,465 @@
         >
           <i class="fa-solid fa-campground"></i> 강화도 MT
         </button>
+        <button 
+          onclick="filterCategory('푸꾸옥 MT')" 
+          data-category="푸꾸옥 MT" 
+          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-umbrella-beach"></i> 푸꾸옥 MT
+        </button>
+        <button 
+          onclick="filterCategory('시즌1')" 
+          data-category="시즌1" 
+          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-star"></i> 시즌 1
+        </button>
+        <button 
+          onclick="filterCategory('시즌2')" 
+          data-category="시즌2" 
+          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-bolt"></i> 시즌 2
+        </button>
+        <button 
+          onclick="filterCategory('시즌3')" 
+          data-category="시즌3" 
+          class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-fire"></i> 시즌 3
+        </button>
+      </div>
+
+      <div class="text-xs text-slate-400 whitespace-nowrap pl-2">
+        검색결과: <span id="filteredCount" class="text-brand-red font-bold">34</span>개
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Grid Main Content -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div id="videoGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Cards rendered via JS -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden flex-col items-center justify-center py-24 text-center">
+      <div class="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center text-slate-500 text-2xl mb-4">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-200">검색된 영상이 없습니다</h3>
+      <p class="text-slate-400 text-sm mt-1">다른 검색어를 입력하거나 카테고리 필터를 변경해보세요.</p>
+      <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-brand-border hover:bg-slate-700 text-xs font-semibold rounded-lg transition-colors text-white">
+        필터 초기화
+      </button>
+    </div>
+  </main>
+
+  <!-- Video Player Modal -->
+  <div id="videoModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 transition-opacity opacity-0 duration-300">
+    <div class="relative w-full max-w-4xl bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 bg-slate-900 border-b border-brand-border">
+        <div class="flex items-center gap-2.5 overflow-hidden">
+          <span id="modalCategoryBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-brand-red text-white flex-shrink-0">
+            시즌
+          </span>
+          <h2 id="modalVideoTitle" class="text-sm sm:text-base font-bold text-white truncate">
+            동영상 제목
+          </h2>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0 ml-3">
+          <span id="modalViewsBadge" class="hidden sm:inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 text-amber-400 font-semibold border border-slate-700">
+            <i class="fa-solid fa-eye text-slate-400"></i> <span id="modalViewsText">0회</span>
+          </span>
+          <a 
+            id="modalDirectLink" 
+            href="#" 
+            target="_blank" 
+            class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition flex items-center gap-1.5"
+            title="유튜브 웹사이트에서 열기"
+          >
+            <i class="fa-brands fa-youtube text-red-500 text-sm"></i>
+            <span class="hidden sm:inline">유튜브에서 열기</span>
+          </a>
+          <button 
+            onclick="closeModal()" 
+            class="w-8 h-8 rounded-lg bg-slate-800/80 hover:bg-brand-red text-slate-400 hover:text-white flex items-center justify-center transition-colors"
+            title="닫기 (ESC)"
+          >
+            <i class="fa-solid fa-xmark text-base"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Video Player Frame -->
+      <div class="aspect-video-container bg-black">
+        <iframe 
+          id="modalIframe"
+          src="" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-4 sm:px-6 py-3 bg-slate-900/90 text-xs text-slate-400 flex items-center justify-between border-t border-brand-border">
+        <span class="flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-info text-slate-500"></i> ESC 키 또는 배경을 클릭하여 닫을 수 있습니다.
+        </span>
+        <button onclick="copyCurrentUrl()" class="text-slate-400 hover:text-brand-red transition flex items-center gap-1 font-medium">
+          <i class="fa-regular fa-copy"></i> 링크 복사
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-brand-red text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-xl shadow-brand-red/30 flex items-center gap-2 transform translate-y-16 opacity-0 transition-all duration-300 pointer-events-none">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg">링크가 클립보드에 복사되었습니다!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-brand-border/60 bg-slate-950 py-8 px-4 text-center">
+    <div class="max-w-7xl mx-auto space-y-2">
+      <p class="text-xs sm:text-sm text-slate-400 font-medium">
+        GO!GIRIT! 영상 아카이브 &copy; 모든 영상의 저작권은 해당 유튜브 채널에 있습니다.
+      </p>
+      <p class="text-[11px] text-slate-600">
+        유튜브 정식 IFrame 임베드 API를 활용하여 편리하게 탐색할 수 있도록 제작된 비공식 아카이브입니다.
+      </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const VIDEOS = [
+      // 강화도 MT 편
+      { id: "WZs23JtufZc", title: "GO!GIRIT! 강화도 MT 1", category: "강화도 MT", ep: "강화도 MT 1부", views: "14.2만회" },
+      { id: "RPwKO55HiOY", title: "GO!GIRIT! 강화도 MT 2", category: "강화도 MT", ep: "강화도 MT 2부", views: "11.8만회" },
+      { id: "o3WiEQH0BRQ", title: "GO!GIRIT! 강화도 MT 3", category: "강화도 MT", ep: "강화도 MT 3부", views: "10.5만회" },
+
+      // 푸꾸옥 MT 편
+      { id: "zLfgDJx6imI", title: "GO!GIRIT! 푸꾸옥 MT 1", category: "푸꾸옥 MT", ep: "1", views: "조회수 집계중" },
+      { id: "5Dh5MP_PRig", title: "GO!GIRIT! 푸꾸옥 MT 1-2", category: "푸꾸옥 MT", ep: "1-2", views: "조회수 집계중" },
+      { id: "bkw0N8sySwU", title: "GO!GIRIT! 푸꾸옥 MT 2", category: "푸꾸옥 MT", ep: "2", views: "조회수 집계중" },
+      { id: "oKdVNf8eOSQ", title: "GO!GIRIT! 푸꾸옥 MT 2-2", category: "푸꾸옥 MT", ep: "2-2", views: "조회수 집계중" },
+      { id: "r-iobAuWgW4", title: "GO!GIRIT! 푸꾸옥 MT 3", category: "푸꾸옥 MT", ep: "3", views: "조회수 집계중" },
+      
+      // 시즌 1
+      { id: "ix2JdfRFemU", title: "GO!GIRIT! 시즌1 1화 대망의 오픈식!!", category: "시즌1", ep: "1화", views: "28.4만회" },
+      { id: "CUcSisMlzD8", title: "GO!GIRIT! 시즌1 2화 시수기릿 vs 여포 팀데스매치", category: "시즌1", ep: "2화", views: "19.6만회" },
+      { id: "_Mzf1wqJT_g", title: "GO!GIRIT! 시즌1 2화 12시간 이후 녹화본", category: "시즌1", ep: "2화 녹화본", views: "7.1만회" },
+      { id: "duvvWEiO71Y", title: "GO!GIRIT! 시즌1 3화 고기릿 명품데이", category: "시즌1", ep: "3화", views: "22.3만회" },
+      { id: "BBAJd9N3hSU", title: "GO!GIRIT! 시즌1 3화 12시간 이후 녹화본", category: "시즌1", ep: "3화 녹화본", views: "8.9만회" },
+      { id: "ZCmjlwvDeUc", title: "GO!GIRIT! 시즌1 4화 직급프리데이 최후의 주인공은 누구？！", category: "시즌1", ep: "4화", views: "25.1만회" },
+      { id: "j95-gZp-1tk", title: "GO!GIRIT! 시즌1 4화 12시간 이후 녹화본", category: "시즌1", ep: "4화 녹화본", views: "6.7만회" },
+      
+      // 시즌 2
+      { id: "BqNKABfbAEU", title: "GO!GIRIT! 시즌2 1화 대망의 직급전 오늘의 여왕은 누구! mp4", category: "시즌2", ep: "1화", views: "31.2만회" },
+      { id: "UyGPg1nUZuM", title: "GO!GIRIT! 시즌2 1화 대망의 직급전 오늘의 여왕은 누구! 방송사고 이후", category: "시즌2", ep: "1화 이후", views: "15.4만회" },
+      { id: "XKg4wqctrv0", title: "GO!GIRIT! 시즌2 2화 명절특집 떡값&벌칙데이", category: "시즌2", ep: "2화", views: "20.8만회" },
+      { id: "fa_lAYfhynA", title: "GO!GIRIT! 시즌2 2화 12시간 이후 녹화본", category: "시즌2", ep: "2화 녹화본", views: "9.3만회" },
+      { id: "usoygBxLZts", title: "GO!GIRIT! 시즌2 3화 Black & White 팀전 데스매치 오늘의 승리팀은!", category: "시즌2", ep: "3화", views: "24.7만회" },
+      { id: "q0B4cCjvlFY", title: "GO!GIRIT! 시즌2 3화 12시간 이후 녹화본", category: "시즌2", ep: "3화 녹화본", views: "8.1만회" },
+      { id: "az0Xcz4UiWo", title: "GO!GIRIT! 시즌2 4화 난사데이 치열한 상벌금 전쟁!!", category: "시즌2", ep: "4화", views: "18.9만회" },
+      { id: "BggdImb4gwI", title: "GO!GIRIT! 시즌2 4화 12시간 이후 녹화본", category: "시즌2", ep: "4화 녹화본", views: "7.8만회" },
+      { id: "AmRsZWQcPTw", title: "GO!GIRIT! 시즌2 5화 New 시그 & 주차방지Day 1부", category: "시즌2", ep: "5화 1부", views: "16.5만회" },
+      { id: "F2H2PauQ7OA", title: "GO!GIRIT! 시즌2 5화 New 시그 & 주차방지Day 2부", category: "시즌2", ep: "5화 2부", views: "13.2만회" },
+      { id: "9VLjOUicaWg", title: "GO!GIRIT! 시즌2 5화 New 시그 & 주차방지Day 3부", category: "시즌2", ep: "5화 3부", views: "11.0만회" },
+      { id: "qLmw_0wo_no", title: "GO!GIRIT! 시즌2 6화 비친소&퐁당퐁당 Day 1부", category: "시즌2", ep: "6화 1부", views: "17.3만회" },
+      { id: "wumO2KYTbBI", title: "GO!GIRIT! 시즌2 6화 비친소&퐁당퐁당 Day 2부", category: "시즌2", ep: "6화 2부", views: "14.9만회" },
+      { id: "ancDrcQg9-I", title: "GO!GIRIT! 시즌2 7화 건전한 할로윈파티&비친소 Day", category: "시즌2", ep: "7화", views: "21.6만회" },
+      { id: "DUjaWVAehiA", title: "GO!GIRIT! 시즌2 7화 12시간 이후 녹화본", category: "시즌2", ep: "7화 녹화본", views: "9.5만회" },
+      { id: "jkx4d3AFGco", title: "GO!GIRIT! 시즌2 8화 크레이지 애니멀 1부", category: "시즌2", ep: "8화 1부", views: "15.8만회" },
+      { id: "52rb22Qg6rc", title: "GO!GIRIT! 시즌2 8화 크레이지 애니멀 2부", category: "시즌2", ep: "8화 2부", views: "18.2만회" },
+
+      // 시즌 3
+      { id: "1AFZw19Tc3A", title: "GO!GIRIT! 시즌3 1화 대망의 직급전 1부", category: "시즌3", ep: "1화 1부", views: "조회수 집계중" },
+      { id: "IwZfFOx9Kdo", title: "GO!GIRIT! 시즌3 1화 대망의 직급전 2부", category: "시즌3", ep: "1화 2부", views: "조회수 집계중" }
+    ];
+
+    // 실시간 YouTube Data API 키 연동 (선택 사항)
+    const YOUTUBE_API_KEY = ""; 
+
+    async function fetchRealYouTubeStats() {
+      if (!YOUTUBE_API_KEY) return;
+      const ids = VIDEOS.map(v => v.id).join(',');
+      try {
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${ids}&key=${YOUTUBE_API_KEY}`);
+        const data = await res.json();
+        if (data.items) {
+          data.items.forEach(item => {
+            const vid = VIDEOS.find(v => v.id === item.id);
+            if (vid && item.statistics && item.statistics.viewCount) {
+              const count = parseInt(item.statistics.viewCount, 10);
+              vid.views = formatViewCount(count);
+            }
+          });
+          renderVideos();
+        }
+      } catch (err) {
+        console.warn("YouTube API 조회수 가져오기 실패:", err);
+      }
+    }
+
+    function formatViewCount(num) {
+      if (num >= 100000000) return (num / 100000000).toFixed(1) + '억회';
+      if (num >= 10000) return (num / 10000).toFixed(1) + '만회';
+      if (num >= 1000) return (num / 1000).toFixed(1) + '천회';
+      return num.toLocaleString() + '회';
+    }
+
+    let currentCategory = '전체';
+    let searchQuery = '';
+    let currentActiveVideo = null;
+
+    window.onload = function() {
+      document.getElementById('countText').innerText = VIDEOS.length;
+      renderVideos();
+      fetchRealYouTubeStats();
+
+      document.getElementById('videoModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+      });
+    };
+
+    function renderVideos() {
+      const container = document.getElementById('videoGrid');
+      const emptyState = document.getElementById('emptyState');
+      const filteredCount = document.getElementById('filteredCount');
+
+      const filtered = VIDEOS.filter(item => {
+        const matchCategory = (currentCategory === '전체') || (item.category === currentCategory);
+        const matchSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                            item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                            item.ep.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCategory && matchSearch;
+      });
+
+      filteredCount.innerText = filtered.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        emptyState.classList.add('flex');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      emptyState.classList.remove('flex');
+
+      const catColorMap = {
+        '강화도 MT': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
+        '푸꾸옥 MT': 'bg-cyan-500/20 text-cyan-400 border-cyan-500/40',
+        '시즌1': 'bg-blue-500/20 text-blue-400 border-blue-500/40',
+        '시즌2': 'bg-amber-500/20 text-amber-400 border-amber-500/40',
+        '시즌3': 'bg-purple-500/20 text-purple-400 border-purple-500/40'
+      };
+
+      container.innerHTML = filtered.map((video) => {
+        const thumbUrl = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
+        const badgeClass = catColorMap[video.category] || 'bg-brand-red/20 text-brand-red border-brand-red/40';
+        const viewsDisplay = video.views || '조회수 정보 없음';
+
+        return `
+          <div 
+            class="group bg-brand-card border border-brand-border hover:border-brand-red/60 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-brand-red/10 transition-all duration-300 flex flex-col cursor-pointer transform hover:-translate-y-1.5"
+            onclick="openVideoModal('${video.id}')"
+          >
+            <!-- 썸네일 컨테이너 -->
+            <div class="relative aspect-video w-full overflow-hidden bg-slate-950">
+              <img 
+                src="${thumbUrl}" 
+                alt="${escapeHtml(video.title)}" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                onerror="this.src='https://placehold.co/640x360/0a0e17/ffffff?text=Thumbnail+Not+Found'"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+              
+              <div class="absolute inset-0 flex items-center justify-center">
+                <span class="w-12 h-12 rounded-full bg-brand-red/90 text-white flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-110 group-hover:bg-brand-red transition-all duration-300">
+                  <i class="fa-solid fa-play text-lg ml-1"></i>
+                </span>
+              </div>
+
+              <div class="absolute top-3 left-3 flex gap-1.5 items-center">
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded-md border ${badgeClass} backdrop-blur-sm bg-black/40">
+                  ${video.category}
+                </span>
+                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-900/80 text-slate-300 backdrop-blur-sm border border-slate-700/50">
+                  ${video.ep}
+                </span>
+              </div>
+
+              <!-- 우측 상단 조회수 태그 -->
+              <div class="absolute top-3 right-3 flex items-center gap-1 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-md text-[10px] text-amber-300 font-semibold border border-white/10">
+                <i class="fa-solid fa-eye text-[9px] text-slate-400"></i> ${viewsDisplay}
+              </div>
+            </div>
+
+            <!-- 메타데이터 -->
+            <div class="p-4 flex flex-col flex-grow justify-between gap-3">
+              <h3 class="text-sm font-semibold text-slate-100 group-hover:text-red-400 transition-colors line-clamp-2 leading-snug">
+                ${escapeHtml(video.title)}
+              </h3>
+              
+              <div class="pt-2 border-t border-brand-border/60 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="flex items-center gap-1.5 hover:text-white transition">
+                  <i class="fa-solid fa-circle-play text-brand-red"></i> 바로 재생
+                </span>
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] text-slate-400 flex items-center gap-1">
+                    <i class="fa-regular fa-eye text-slate-500"></i> ${viewsDisplay}
+                  </span>
+                  <span 
+                    onclick="event.stopPropagation(); window.open('https://youtu.be/${video.id}', '_blank');"
+                    class="p-1 px-2 hover:bg-slate-800 rounded text-slate-400 hover:text-red-400 transition flex items-center gap-1"
+                    title="유튜브 새창으로 보기"
+                  >
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> YouTube
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openVideoModal(videoId) {
+      const video = VIDEOS.find(v => v.id === videoId);
+      if (!video) return;
+
+      currentActiveVideo = video;
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('modalIframe');
+      const title = document.getElementById('modalVideoTitle');
+      const badge = document.getElementById('modalCategoryBadge');
+      const directLink = document.getElementById('modalDirectLink');
+      const viewsText = document.getElementById('modalViewsText');
+
+      title.innerText = video.title;
+      badge.innerText = `${video.category} • ${video.ep}`;
+      directLink.href = `https://youtu.be/${video.id}`;
+      if (viewsText) {
+        viewsText.innerText = video.views || '조회수 미확인';
+      }
+      
+      iframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1`;
+
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+      }, 10);
+
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('modalIframe');
+      
+      modal.classList.add('opacity-0');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        iframe.src = '';
+      }, 300);
+
+      document.body.style.overflow = '';
+      currentActiveVideo = null;
+    }
+
+    function filterCategory(cat) {
+      currentCategory = cat;
+      const tabs = document.querySelectorAll('.cat-tab');
+
+      tabs.forEach(tab => {
+        if (tab.getAttribute('data-category') === cat) {
+          tab.className = "cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-brand-red text-white shadow-md shadow-brand-red/20 flex items-center gap-1.5 whitespace-nowrap";
+        } else {
+          tab.className = "cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap";
+        }
+      });
+
+      renderVideos();
+    }
+
+    function handleSearch() {
+      const input = document.getElementById('searchInput');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      searchQuery = input.value.trim();
+
+      if (searchQuery.length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+
+      renderVideos();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      input.value = '';
+      searchQuery = '';
+      clearBtn.classList.add('hidden');
+      renderVideos();
+    }
+
+    function resetFilters() {
+      clearSearch();
+      filterCategory('전체');
+    }
+
+    function copyCurrentUrl() {
+      if (!currentActiveVideo) return;
+      const url = `https://youtu.be/${currentActiveVideo.id}`;
+      
+      const textArea = document.createElement("textarea");
+      textArea.value = url;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast("유튜브 주소가 클립보드에 복사되었습니다!");
+      } catch (err) {
+        showToast("링크 복사에 실패했습니다.");
+      }
+      document.body.removeChild(textArea);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = message;
+
+      toast.classList.remove('translate-y-16', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-16', 'opacity-0');
+      }, 2500);
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
