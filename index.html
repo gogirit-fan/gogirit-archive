@@ -97,7 +97,7 @@
         GO!GIRIT! <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-rose-400 to-amber-400">영상 컬렉션</span>
       </h1>
       <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
-        MT 편부터 시즌 1, 시즌 2, 시즌 3까지 원하는 에피소드를 클릭하여 바로 감상해보세요.
+        강화도 MT 편부터 시즌 1, 시즌 2, 시즌 3까지 원하는 에피소드를 클릭하여 바로 감상해보세요.
       </p>
 
       <!-- Search Box -->
@@ -107,7 +107,7 @@
           <input 
             type="text" 
             id="searchInput" 
-            placeholder="에피소드 제목, 번호 검색 (예: MT, 1화, 녹화본 등)..."
+            placeholder="에피소드 제목, 번호 검색 (예: 강화도 MT, 1화, 녹화본 등)..."
             class="w-full bg-brand-card/90 border border-brand-border focus:border-brand-red focus:ring-1 focus:ring-brand-red text-white text-sm rounded-xl pl-11 pr-10 py-3.5 placeholder-slate-500 outline-none transition-all shadow-inner"
             oninput="handleSearch()"
           >
@@ -135,11 +135,11 @@
           <i class="fa-solid fa-layer-group"></i> 전체보기
         </button>
         <button 
-          onclick="filterCategory('MT')" 
-          data-category="MT" 
+          onclick="filterCategory('강화도 MT')" 
+          data-category="강화도 MT" 
           class="cat-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 whitespace-nowrap"
         >
-          <i class="fa-solid fa-campground"></i> MT 편
+          <i class="fa-solid fa-campground"></i> 강화도 MT
         </button>
         <button 
           onclick="filterCategory('시즌1')" 
@@ -272,10 +272,10 @@
   <!-- JavaScript Logic -->
   <script>
     const VIDEOS = [
-      // MT 편
-      { id: "WZs23JtufZc", title: "GO!GIRIT! MT 어떤 재미를 주려나 1", category: "MT", ep: "MT 1부", views: "14.2만회" },
-      { id: "RPwKO55HiOY", title: "GO!GIRIT! MT 어떤 재미를 주려나 2", category: "MT", ep: "MT 2부", views: "11.8만회" },
-      { id: "o3WiEQH0BRQ", title: "GO!GIRIT! MT 어떤 재미를 주려나 3", category: "MT", ep: "MT 3부", views: "10.5만회" },
+      // 강화도 MT 편
+      { id: "WZs23JtufZc", title: "GO!GIRIT! MT 어떤 재미를 주려나 1", category: "강화도 MT", ep: "강화도 MT 1부", views: "14.2만회" },
+      { id: "RPwKO55HiOY", title: "GO!GIRIT! MT 어떤 재미를 주려나 2", category: "강화도 MT", ep: "강화도 MT 2부", views: "11.8만회" },
+      { id: "o3WiEQH0BRQ", title: "GO!GIRIT! MT 어떤 재미를 주려나 3", category: "강화도 MT", ep: "강화도 MT 3부", views: "10.5만회" },
       
       // 시즌 1
       { id: "ix2JdfRFemU", title: "GO!GIRIT! 시즌1 1화 대망의 오픈식!!", category: "시즌1", ep: "1화", views: "28.4만회" },
@@ -385,7 +385,7 @@
       emptyState.classList.remove('flex');
 
       const catColorMap = {
-        'MT': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
+        '강화도 MT': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
         '시즌1': 'bg-blue-500/20 text-blue-400 border-blue-500/40',
         '시즌2': 'bg-amber-500/20 text-amber-400 border-amber-500/40',
         '시즌3': 'bg-purple-500/20 text-purple-400 border-purple-500/40'
