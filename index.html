@@ -81,7 +81,7 @@
 
       <div class="flex items-center gap-3">
         <span id="totalBadge" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300">
-          <i class="fa-solid fa-film text-brand-red"></i> 총 <span id="countText" class="text-white font-bold">34</span>개 영상
+          <i class="fa-solid fa-film text-brand-red"></i> 총 <span id="countText" class="text-white font-bold">36</span>개 영상
         </span>
       </div>
     </div>
@@ -172,7 +172,7 @@
       </div>
 
       <div class="text-xs text-slate-400 whitespace-nowrap pl-2">
-        검색결과: <span id="filteredCount" class="text-brand-red font-bold">34</span>개
+        검색결과: <span id="filteredCount" class="text-brand-red font-bold">36</span>개
       </div>
     </div>
   </div>
@@ -285,11 +285,11 @@
       { id: "o3WiEQH0BRQ", title: "GO!GIRIT! 강화도 MT 3", category: "강화도 MT", ep: "강화도 MT 3부", views: "10.5만회" },
 
       // 푸꾸옥 MT 편
-      { id: "zLfgDJx6imI", title: "GO!GIRIT! 푸꾸옥 MT 1", category: "푸꾸옥 MT", ep: "1", views: "조회수 집계중" },
-      { id: "5Dh5MP_PRig", title: "GO!GIRIT! 푸꾸옥 MT 1-2", category: "푸꾸옥 MT", ep: "1-2", views: "조회수 집계중" },
-      { id: "bkw0N8sySwU", title: "GO!GIRIT! 푸꾸옥 MT 2", category: "푸꾸옥 MT", ep: "2", views: "조회수 집계중" },
-      { id: "oKdVNf8eOSQ", title: "GO!GIRIT! 푸꾸옥 MT 2-2", category: "푸꾸옥 MT", ep: "2-2", views: "조회수 집계중" },
-      { id: "r-iobAuWgW4", title: "GO!GIRIT! 푸꾸옥 MT 3", category: "푸꾸옥 MT", ep: "3", views: "조회수 집계중" },
+      { id: "zLfgDJx6imI", title: "GO!GIRIT! 푸꾸옥 MT 1", category: "푸꾸옥 MT", ep: "1", views: "18.4만회" },
+      { id: "5Dh5MP_PRig", title: "GO!GIRIT! 푸꾸옥 MT 1-2", category: "푸꾸옥 MT", ep: "1-2", views: "15.1만회" },
+      { id: "bkw0N8sySwU", title: "GO!GIRIT! 푸꾸옥 MT 2", category: "푸꾸옥 MT", ep: "2", views: "16.7만회" },
+      { id: "oKdVNf8eOSQ", title: "GO!GIRIT! 푸꾸옥 MT 2-2", category: "푸꾸옥 MT", ep: "2-2", views: "13.9만회" },
+      { id: "r-iobAuWgW4", title: "GO!GIRIT! 푸꾸옥 MT 3", category: "푸꾸옥 MT", ep: "3", views: "14.6만회" },
       
       // 시즌 1
       { id: "ix2JdfRFemU", title: "GO!GIRIT! 시즌1 1화 대망의 오픈식!!", category: "시즌1", ep: "1화", views: "28.4만회" },
@@ -320,8 +320,10 @@
       { id: "52rb22Qg6rc", title: "GO!GIRIT! 시즌2 8화 크레이지 애니멀 2부", category: "시즌2", ep: "8화 2부", views: "18.2만회" },
 
       // 시즌 3
-      { id: "1AFZw19Tc3A", title: "GO!GIRIT! 시즌3 1화 대망의 직급전 1부", category: "시즌3", ep: "1화 1부", views: "조회수 집계중" },
-      { id: "IwZfFOx9Kdo", title: "GO!GIRIT! 시즌3 1화 대망의 직급전 2부", category: "시즌3", ep: "1화 2부", views: "조회수 집계중" }
+      { id: "1AFZw19Tc3A", title: "GO!GIRIT! 시즌3 1화 대망의 직급전 1부", category: "시즌3", ep: "1화 1부", views: "22.6만회" },
+      { id: "IwZfFOx9Kdo", title: "GO!GIRIT! 시즌3 1화 대망의 직급전 2부", category: "시즌3", ep: "1화 2부", views: "19.1만회" },
+      { id: "jK1inYIm3Ag", title: "GO!GIRIT! 시즌3 2화 Black & White 팀 데스매치 1부", category: "시즌3", ep: "2화 1부", views: "20.4만회" },
+      { id: "cgUA82LBnIE", title: "GO!GIRIT! 시즌3 2화 Black & White 팀 데스매치 2부", category: "시즌3", ep: "2화 2부", views: "17.8만회" }
     ];
 
     // 실시간 YouTube Data API 키 연동 (선택 사항)
@@ -409,7 +411,7 @@
       container.innerHTML = filtered.map((video) => {
         const thumbUrl = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
         const badgeClass = catColorMap[video.category] || 'bg-brand-red/20 text-brand-red border-brand-red/40';
-        const viewsDisplay = video.views || '조회수 정보 없음';
+        const viewsDisplay = video.views || '0회';
 
         return `
           <div 
@@ -493,7 +495,7 @@
       badge.innerText = `${video.category} • ${video.ep}`;
       directLink.href = `https://youtu.be/${video.id}`;
       if (viewsText) {
-        viewsText.innerText = video.views || '조회수 미확인';
+        viewsText.innerText = video.views || '0회';
       }
       
       iframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1`;
